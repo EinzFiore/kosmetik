@@ -28,6 +28,7 @@ Route::prefix('admin')
         Route::resource('transaksi', 'admin\TransaksiController', [
             'as' => 'admin'
         ]);
+        Route::put('admin/transaksi/pengiriman/{id}', 'admin\TransaksiController@pengiriman')->name('admin.transaksi.pengiriman');
     });
 
 Route::prefix('produk')

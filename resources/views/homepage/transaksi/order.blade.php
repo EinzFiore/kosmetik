@@ -28,6 +28,8 @@
                       <th>Date</th>
                       <th>Total</th>
                       <th>Status</th>
+                      <th>Kurir</th>
+                      <th>No. Resi</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -42,6 +44,20 @@
                           <span class="badge badge-warning">Proses Konfirmasi</span>
                           @elseif ($o->status == 1)
                           <span class="badge badge-info">Dikonfirmasi</span>
+                        @endif
+                      </td>
+                      <td>
+                        @if ($o->jasa_pengiriman == '-')
+                            Jasa Pengiriman Belum ditambahkan
+                            @else
+                            <?= $o->jasa_pengiriman ?>
+                        @endif
+                      </td>
+                      <td>
+                        @if ($o->no_resi == 0)
+                            Belum ada no resi
+                            @else
+                            <?= $o->no_resi ?>
                         @endif
                       </td>
                       <td><a href="<?= route('order.view', $o->id) ?>" class="btn btn-primary btn-sm">View</a></td>

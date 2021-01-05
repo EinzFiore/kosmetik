@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rekening;
+use App\Models\Transactions;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use SweetAlert;

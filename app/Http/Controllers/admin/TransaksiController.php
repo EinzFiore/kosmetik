@@ -86,4 +86,14 @@ class TransaksiController extends Controller
     {
         //
     }
+
+    function pengiriman(Request $request, $id)
+    {
+        $data = Transactions::findOrFail($id);
+        $data->update([
+            'jasa_pengiriman' => $request->kurir,
+            'no_resi' => $request->no_resi,
+        ]);
+        return redirect()->route('admin.transaksi.index');
+    }
 }

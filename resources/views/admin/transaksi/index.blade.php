@@ -23,6 +23,9 @@
                   <th scope="col">Atas Nama</th>
                   <th scope="col">Status</th>
                   <th scope="col">Konfirmasi</th>
+                  <th scope="col">Jasa Pengiriman</th>
+                  <th scope="col">No Resi</th>
+                  <th scope="col">Tambah Data Pengiriman</th>
                 </tr>
               </thead>
               <tbody class="list">
@@ -47,6 +50,32 @@
                     <td>
                         @if ($t->status == 0)
                             <button class="btn btn-primary" data-toggle="modal" data-target="#konfirmasi<?= $t->id ?>">Konfirmasi</button>
+                            @else
+                            -                            
+                        @endif
+                    </td>
+                    @if ($t->status == 1)
+                      <td>
+                        @if ($t->jasa_pengiriman == '-')
+                            Jasa Pengiriman Belum ditambahkan
+                            @else
+                            <?= $t->jasa_pengiriman ?>
+                        @endif
+                      </td>
+                      <td>
+                        @if ($t->no_resi == 0)
+                            Belum ada no resi
+                            @else
+                            <?= $t->no_resi ?>
+                        @endif
+                      </td>
+                      @else
+                      <td>-</td>
+                      <td>-</td>
+                    @endif
+                    <td>
+                        @if ($t->status == 1)
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#addKurir<?= $t->id ?>">Tambah/Edit</button>
                             @else
                             -                            
                         @endif
@@ -82,6 +111,40 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Konfirmasi</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  @endforeach
+
+{{-- Modal Pengiriman --}}
+@foreach ($transaksi as $t)
+<div class="modal fade" id="addKurir<?= $t->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah/Edit data pengiriman</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="<?= route('admin.transaksi.pengiriman', $t->id) ?>" method="post">
+          @method('PUT')
+            @csrf
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Nama Jasa Pengiriman</label>
+                <input type="text" name="kurir" class="form-control" value="<?= $t->jasa_pengiriman ?>">
+              </div>
+              <div class="form-group">
+                <label>Nomor Resi</label>
+                <input type="number" name="no_resi" class="form-control" value="<?= $t->no_resi ?>">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
       </div>
